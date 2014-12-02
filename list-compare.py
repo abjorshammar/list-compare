@@ -14,7 +14,7 @@ import sys
 class listCompare:
     def __init__(self):
         self.compare = 'match'
-        self.compareOpts = ['match']
+        self.compareOpts = ['match', 'merge']
         self.list1 = []
         self.list2 = []
         self.result = []
@@ -56,6 +56,11 @@ class listCompare:
             for line in self.list1:
                 if line in self.list2:
                     self.result.append(line)
+        elif self.compare == 'merge':
+            self.result = list(self.list1)
+            for line in self.list2:
+                if line not in self.result:
+                    self.result.append(line)
 
 
         # Print results to file
@@ -82,7 +87,7 @@ print('Output file name: ' + outputFile + '\n')
 
 compareSet = False
 while compareSet == False:
-    compare = raw_input('Type of comparison [match]: ')
+    compare = raw_input('Type of comparison <merge|[match]>: ')
     if compare:
         comp = comparison.setCompare(compare)
         if comp[0] == 1:
